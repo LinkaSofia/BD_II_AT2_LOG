@@ -2,6 +2,8 @@ import psycopg2
 from beautifultable import BeautifulTable
 import re
 
+comitado = []
+transacaoAberta = []
 
 def Conectar():
     try:
@@ -16,7 +18,7 @@ def Conectar():
         
         return None
 
-    con = Conectar()
+con = Conectar()
 con.autocommit = False
 
 def compararValores(linhas, t):
