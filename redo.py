@@ -2,6 +2,9 @@ import psycopg2
 from beautifultable import BeautifulTable
 import re
 
+comitado = []
+transacaoAberta = []
+
 # conexão 
 def Conectar():
     try:
@@ -16,8 +19,23 @@ def Conectar():
         return None
 
 def main():
-    arquivo = open('arquivo.txt', 'r') 
+    arquivo = open('teste1.txt', 'r') 
     #imprimindo para ver se conseguiu abrir o arquivo:
-    print(arquivo.read())
+    #print(arquivo.read())
+    linhas = []
+
+    for i in arquivo:
+        linhas.append(i)
+    linhas = limpar(linhas)
+    print(linhas)
+
+#tirar os \n, >, < do arquivo
+def limpar(linhas):
+    for linha in range(len(linhas)):
+        linhas[linha] = re.sub('\n', '', linhas[linha])
+        linhas[linha] = re.sub('<', '',linhas[linha])
+        linhas[linha] = re.sub('>', '',linhas[linha])
+    
+    return linhas
 
 main()
