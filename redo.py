@@ -22,7 +22,7 @@ def Conectar():
 con = Conectar()
 
 def main():
-    arquivo = open('teste1.txt', 'r') 
+    arquivo = open('arquivo.txt', 'r') 
     #imprimindo para ver se conseguiu abrir o arquivo:
     #print(arquivo.read())
     linhas = []
@@ -67,8 +67,10 @@ def inserir(linhas, x):
         sql = "select * from tabela where id = {}".format (quebra[1])
         cur.execute(sql)
         r = cur.fetchall()
-        sql = "update tabela set {} = {} where id = {}".format (quebra[0], quebra[2], quebra[1])
-        cur.execute(sql)
+        if r:
+            cur.execute("update tabela set {} = {} where id = {}".format(quebra[0], quebra[2], quebra[1]))
+        else:
+            cur.execute("insert into tabela (id, {}) values ({}, {})".format(quebra[0], quebra[1], quebra[2]))
     con.commit()
     print("\n------\nValores iniciais")
     valorVariaveis()
@@ -80,6 +82,7 @@ def valorVariaveis():
     cur.execute(sql)
     # vê se deu certo o select
     r = cur.fetchall()
+    print(r)
     #uma biblioteca para a tabela ficar bonita
     table = BeautifulTable()
     #cabeçalhos da tabela
