@@ -89,9 +89,11 @@ def inserir(linhas, x):
         cur.execute(sql)
         r = cur.fetchall()
         if r:
-            cur.execute("update tabela set {} = {} where id = {}".format(quebra[0], quebra[2], quebra[1]))
+            sql = "update tabela set {} = {} where id = {}".format(quebra[0], quebra[2], quebra[1])
+            cur.execute(sql)
         else:
-            cur.execute("insert into tabela (id, {}) values ({}, {})".format(quebra[0], quebra[1], quebra[2]))
+            sql = "insert into tabela (id, {}) values ({}, {})".format(quebra[0], quebra[1], quebra[2])
+            cur.execute(sql)
     con.commit()
     print("\n------\nValores iniciais")
     valorVariaveis()
